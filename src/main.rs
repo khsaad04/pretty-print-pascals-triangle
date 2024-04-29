@@ -1,25 +1,24 @@
-use std::io::{stdin, stdout, Write};
+use std::io::{self, stdin, stdout, Write};
 
-fn main() {
+fn main() -> io::Result<()> {
     let mut prompt = String::new();
+
     print!("Enter the number of rows: ");
     let _ = stdout().flush();
-    stdin().read_line(&mut prompt).unwrap();
-    let n = prompt.trim().parse::<usize>().unwrap();
+    stdin().read_line(&mut prompt)?;
 
-    for i in 1..n + 1 {
-        pascal_triangle(i);
-        println!();
-    }
+    let n = prompt.trim().parse::<u128>().unwrap();
+    pascal_triangle(n);
+    Ok(())
 }
 
-fn pascal_triangle(n: usize) {
-    let mut space = (2_usize.pow(n as u32) / n * 2 / 3).to_string().len();
+fn pascal_triangle(n: u128) {
+    let mut space = (2_u128.pow(n as u32) / n * 2 / 3).to_string().len();
     if n == 6 {
         space = 2;
     }
     for i in 1..n + 1 {
-        print!("{}1", " ".repeat(space * (n - i)));
+        print!("{}1", " ".repeat(space * (n - i) as usize));
         let mut res = 1;
         for j in 1..i {
             res *= i - j;
