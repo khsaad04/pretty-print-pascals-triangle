@@ -13,10 +13,7 @@ fn main() -> io::Result<()> {
 }
 
 fn pascal_triangle(n: u128) {
-    let mut space = (2_u128.pow(n as u32) / n * 2 / 3).to_string().len();
-    if n == 6 {
-        space = 2;
-    }
+    let space = (2_u128.pow(n as u32)).to_string().len();
     for i in 1..n + 1 {
         print!("{}1", " ".repeat(space * (n - i) as usize));
         let mut res = 1;
